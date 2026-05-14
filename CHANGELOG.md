@@ -1,5 +1,11 @@
 # Changelog
 
+## Release 0.3.2
+
+### New features
+
+* **Bump ruby_task_helper upper bound to < 2.0.0** ([#18](https://github.com/puppetlabs/puppetlabs-http_request/pull/18))
+
 ## Release 0.3.1
 
 ### Bug fixes
