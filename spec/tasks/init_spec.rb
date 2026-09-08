@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative '../spec_helper'
-require_relative '../fixtures/modules/ruby_task_helper/files/task_helper'
 require_relative '../../tasks/init'
 
 describe HTTPRequest do
