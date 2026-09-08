@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../spec_helper'
+require_relative '../fixtures/modules/ruby_task_helper/files/task_helper'
 require_relative '../../tasks/init'
 
 describe HTTPRequest do
@@ -17,7 +18,7 @@ describe HTTPRequest do
       base_url: "#{url}/get",
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.keys).to match_array(success_keys)
     expect(result[:status_code]).to eq(200)
   end
@@ -31,7 +32,7 @@ describe HTTPRequest do
       path: 'post',
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.keys).to match_array(success_keys)
     expect(result[:status_code]).to eq(200)
   end
@@ -44,7 +45,7 @@ describe HTTPRequest do
       base_url: 'https://www.google.com',
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.keys).to match_array(success_keys)
     expect(result[:body].encoding).to eq(Encoding::UTF_8)
   end
@@ -62,7 +63,7 @@ describe HTTPRequest do
       max_redirects: 20,
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.keys).to match_array(success_keys)
   end
 
@@ -79,7 +80,7 @@ describe HTTPRequest do
       max_redirects: 3,
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.key?(:_error)).to be(true)
   end
 
@@ -90,7 +91,7 @@ describe HTTPRequest do
       body: { 'foo' => 'bar' },
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.key?(:_error)).to be(true)
   end
 
@@ -107,7 +108,7 @@ describe HTTPRequest do
       stub = stub_request(:get, 'http://0.0.0.0/headers')
              .to_return(status: 200, body: '{}', headers: { 'Content-Type' => 'application/json' })
 
-      _ = handler.task(opts)
+      _ = handler.task(**opts)
 
       expect(stub).to have_been_requested.once
     end
@@ -118,7 +119,7 @@ describe HTTPRequest do
       stub = stub_request(:get, 'http://0.0.0.0/headers')
              .to_return(status: 200, headers: { 'Content-Type' => 'text/plain' })
 
-      _ = handler.task(opts)
+      _ = handler.task(**opts)
 
       expect(stub).to have_been_requested.once
     end
@@ -138,7 +139,7 @@ describe HTTPRequest do
         body: body,
       }
 
-      _ = handler.task(opts)
+      _ = handler.task(**opts)
 
       expect(stub).to have_been_requested.once
     end
@@ -152,7 +153,7 @@ describe HTTPRequest do
         method: 'post',
         base_url: "#{url}/post",
       }
-      result = handler.task(opts)
+      result = handler.task(**opts)
       expect(result.keys).to match_array(success_keys)
       expect(result[:body]).to be_nil
     end
