@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../ruby_task_helper/files/task_helper'
+require_relative '../../ruby_task_helper/files/task_helper' unless Object.const_defined?(:TaskHelper)
 
 require 'json'
 require 'net/http'
@@ -16,8 +16,8 @@ class HTTPRequest < TaskHelper
     headers  = format_headers(opts[:headers], opts[:json_endpoint])
     ssl_opts = {
       cacert: opts[:cacert],
-      cert:   opts[:cert],
-      key:    opts[:key]
+      cert: opts[:cert],
+      key: opts[:key],
     }
 
     redirects = 0
@@ -33,7 +33,7 @@ class HTTPRequest < TaskHelper
       if redirects >= opts[:max_redirects]
         raise TaskHelper::Error.new(
           "Too many redirects (max: #{opts[:max_redirects]})",
-          'http_request/too-many-redirects-error'
+          'http_request/too-many-redirects-error',
         )
       end
 
@@ -43,8 +43,8 @@ class HTTPRequest < TaskHelper
 
     # Return the body and status code of the response.
     {
-      body:        parse_response_body(response, opts[:json_endpoint]),
-      status_code: response.code.to_i
+      body: parse_response_body(response, opts[:json_endpoint]),
+      status_code: response.code.to_i,
     }
   rescue TaskHelper::Error => e
     { _error: e.to_h }
@@ -77,7 +77,7 @@ class HTTPRequest < TaskHelper
   rescue StandardError => e
     raise TaskHelper::Error.new(
       "Failed to connect to #{uri}: #{e.message}",
-      'http_request/connect-error'
+      'http_request/connect-error',
     )
   end
 
@@ -93,7 +93,7 @@ class HTTPRequest < TaskHelper
       rescue JSON::ParserError => e
         raise TaskHelper::Error.new(
           "Unable to parse response body as JSON: #{e.message}",
-          'http_request/json-parse-error'
+          'http_request/json-parse-error',
         )
       end
     end
@@ -118,7 +118,7 @@ class HTTPRequest < TaskHelper
     else
       raise TaskHelper::Error.new(
         'body must be a String when json_endpoint is false',
-        'http_request/body-type-error'
+        'http_request/body-type-error',
       )
     end
   end
@@ -140,6 +140,4 @@ class HTTPRequest < TaskHelper
   end
 end
 
-if $PROGRAM_NAME == __FILE__
-  HTTPRequest.run
-end
+HTTPRequest.run if $PROGRAM_NAME == __FILE__

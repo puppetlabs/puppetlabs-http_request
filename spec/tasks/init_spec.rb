@@ -7,17 +7,17 @@ describe HTTPRequest do
   subject(:handler) { described_class.new }
 
   let(:url)          { 'http://0.0.0.0:80' }
-  let(:success_keys) { %i[body status_code] }
+  let(:success_keys) { [:body, :status_code] }
 
   it 'can make a request' do
     stub_request(:get, 'http://0.0.0.0/get')
 
     opts = {
-      method:   'get',
-      base_url: "#{url}/get"
+      method: 'get',
+      base_url: "#{url}/get",
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.keys).to match_array(success_keys)
     expect(result[:status_code]).to eq(200)
   end
@@ -26,12 +26,12 @@ describe HTTPRequest do
     stub_request(:post, 'http://0.0.0.0/post')
 
     opts = {
-      method:   'post',
+      method: 'post',
       base_url: url,
-      path:     'post'
+      path: 'post',
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.keys).to match_array(success_keys)
     expect(result[:status_code]).to eq(200)
   end
@@ -40,11 +40,11 @@ describe HTTPRequest do
     stub_request(:get, 'https://www.google.com/')
 
     opts = {
-      method:   'get',
-      base_url: 'https://www.google.com'
+      method: 'get',
+      base_url: 'https://www.google.com',
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.keys).to match_array(success_keys)
     expect(result[:body].encoding).to eq(Encoding::UTF_8)
   end
@@ -56,13 +56,13 @@ describe HTTPRequest do
     stub_request(:get, 'http://0.0.0.0/get')
 
     opts = {
-      method:           'get',
-      base_url:         "#{url}/redirect-to?url=#{url}/get",
+      method: 'get',
+      base_url: "#{url}/redirect-to?url=#{url}/get",
       follow_redirects: true,
-      max_redirects:    20
+      max_redirects: 20,
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.keys).to match_array(success_keys)
   end
 
@@ -73,33 +73,33 @@ describe HTTPRequest do
     end
 
     opts = {
-      method:           'get',
-      base_url:         "#{url}/absolute-redirect/0",
+      method: 'get',
+      base_url: "#{url}/absolute-redirect/0",
       follow_redirects: true,
-      max_redirects:    3
+      max_redirects: 3,
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.key?(:_error)).to be(true)
   end
 
   it 'errors if the request body is not a String' do
     opts = {
-      method:   'post',
+      method: 'post',
       base_url: "#{url}/post",
-      body:     { 'foo' => 'bar' }
+      body: { 'foo' => 'bar' },
     }
 
-    result = handler.task(opts)
+    result = handler.task(**opts)
     expect(result.key?(:_error)).to be(true)
   end
 
   context 'json_endpoint' do
     let(:opts) do
       {
-        method:        'get',
-        base_url:      "#{url}/headers",
-        json_endpoint: true
+        method: 'get',
+        base_url: "#{url}/headers",
+        json_endpoint: true,
       }
     end
 
@@ -107,7 +107,7 @@ describe HTTPRequest do
       stub = stub_request(:get, 'http://0.0.0.0/headers')
              .to_return(status: 200, body: '{}', headers: { 'Content-Type' => 'application/json' })
 
-      _ = handler.task(opts)
+      _ = handler.task(**opts)
 
       expect(stub).to have_been_requested.once
     end
@@ -118,27 +118,27 @@ describe HTTPRequest do
       stub = stub_request(:get, 'http://0.0.0.0/headers')
              .to_return(status: 200, headers: { 'Content-Type' => 'text/plain' })
 
-      _ = handler.task(opts)
+      _ = handler.task(**opts)
 
       expect(stub).to have_been_requested.once
     end
 
     it 'formats body as JSON' do
       body = {
-        'foo' => 'bar'
+        'foo' => 'bar',
       }
 
       stub = stub_request(:post, 'http://0.0.0.0/anything')
              .with(body: body, headers: { 'Content-Type' => 'application/json' })
 
       opts = {
-        method:        'post',
-        base_url:      "#{url}/anything",
+        method: 'post',
+        base_url: "#{url}/anything",
         json_endpoint: true,
-        body:          body
+        body: body,
       }
 
-      _ = handler.task(opts)
+      _ = handler.task(**opts)
 
       expect(stub).to have_been_requested.once
     end
@@ -149,10 +149,10 @@ describe HTTPRequest do
       stub_request(:post, "#{url}/post")
         .to_return(status: 204, body: nil)
       opts = {
-        method:   'post',
-        base_url: "#{url}/post"
+        method: 'post',
+        base_url: "#{url}/post",
       }
-      result = handler.task(opts)
+      result = handler.task(**opts)
       expect(result.keys).to match_array(success_keys)
       expect(result[:body]).to be_nil
     end
