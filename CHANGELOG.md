@@ -1,67 +1,81 @@
+<!-- markdownlint-disable MD024 -->
 # Changelog
 
-## Release 0.3.2
+All notable changes to this project will be documented in this file.
 
-### New features
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-* **Bump ruby_task_helper upper bound to < 2.0.0** ([#18](https://github.com/puppetlabs/puppetlabs-http_request/pull/18))
+## [v1.0.0](https://github.com/puppetlabs/puppetlabs-http_request/tree/v1.0.0) - 2026-09-10
 
-## Release 0.3.1
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-http_request/compare/0.3.2...v1.0.0)
 
-### Bug fixes
+### Changed
 
-- **Handle reponses without a body**
-  ([#14](https://github.com/puppetlabs/puppetlabs-http_request/pull/14))
+- (BOLT-193): http_request pdk update to puppet 9 [#20](https://github.com/puppetlabs/puppetlabs-http_request/pull/20) ([gavindidrichsen](https://github.com/gavindidrichsen))
 
-  The `http_request` task no longer errors when the response does not
-  include a body.
+### Other
 
-  _Contributed by [op-ct](https://github.com/op-ct)._
+- CHANGELOG update [#21](https://github.com/puppetlabs/puppetlabs-http_request/pull/21) ([gavindidrichsen](https://github.com/gavindidrichsen))
+- (BOLT-136) Prepare for release. [#19](https://github.com/puppetlabs/puppetlabs-http_request/pull/19) ([gavindidrichsen](https://github.com/gavindidrichsen))
 
-## Release 0.3.0
+## [0.3.2](https://github.com/puppetlabs/puppetlabs-http_request/tree/0.3.2) - 2026-05-14
 
-### New features
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-http_request/compare/0.3.1...0.3.2)
 
-- **Update `method` parameter to accept `patch`**
-  ([#10](https://github.com/puppetlabs/puppetlabs-http_request/issues/10))
+### Other
 
-  The `method` parameter now accepts `patch` as a value.
+- (BOLT-136) Prepare for release. [#19](https://github.com/puppetlabs/puppetlabs-http_request/pull/19) ([gavindidrichsen](https://github.com/gavindidrichsen))
+- (BOLT-136) Bump ruby_task_helper upper bound to < 2.0.0 [#18](https://github.com/puppetlabs/puppetlabs-http_request/pull/18) ([gavindidrichsen](https://github.com/gavindidrichsen))
+- (maint) Prep 0.3.1 release [#15](https://github.com/puppetlabs/puppetlabs-http_request/pull/15) ([beechtom](https://github.com/beechtom))
 
-  _Contributed by [op-ct](https://github.com/op-ct)._
+## [0.3.1](https://github.com/puppetlabs/puppetlabs-http_request/tree/0.3.1) - 2021-08-09
 
-## Release 0.2.2
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-http_request/compare/0.3.0...0.3.1)
 
-### Bug fixes
+### Other
 
-- **Read key data from file passed to `key` parameter**
-  ([#8](https://github.com/puppetlabs/puppetlabs-http_request/pull/8))
+- (maint) Prep 0.3.1 release [#15](https://github.com/puppetlabs/puppetlabs-http_request/pull/15) ([beechtom](https://github.com/beechtom))
+- Handle valid empty-body HTTP responses when json [#14](https://github.com/puppetlabs/puppetlabs-http_request/pull/14) ([op-ct](https://github.com/op-ct))
+- (maint) Prep 0.3.0 release [#13](https://github.com/puppetlabs/puppetlabs-http_request/pull/13) ([beechtom](https://github.com/beechtom))
 
-  Key data is now read from the file path passed to the `key` parameter.
-  Previously, the file path itself was used as the key data.
+## [0.3.0](https://github.com/puppetlabs/puppetlabs-http_request/tree/0.3.0) - 2021-07-16
 
-## Release 0.2.1
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-http_request/compare/0.2.2...0.3.0)
 
-### Bug fixes
+### Other
 
-- **Convert headers to strings**
-  ([#4](https://github.com/puppetlabs/puppetlabs-http_request/pull/4))
+- (maint) Prep 0.3.0 release [#13](https://github.com/puppetlabs/puppetlabs-http_request/pull/13) ([beechtom](https://github.com/beechtom))
+- (maint) Add release workflow [#12](https://github.com/puppetlabs/puppetlabs-http_request/pull/12) ([beechtom](https://github.com/beechtom))
+- (GH-10) Update 'method' parameter to accept `patch` [#11](https://github.com/puppetlabs/puppetlabs-http_request/pull/11) ([op-ct](https://github.com/op-ct))
 
-  Headers set under the `headers` parameter are now converted to strings before
-  making a request. Previously, headers were passed to the request as symbols.
+## [0.2.2](https://github.com/puppetlabs/puppetlabs-http_request/tree/0.2.2) - 2021-03-05
 
-  _Contributed by [barskern](https://github.com/barskern)._
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-http_request/compare/0.2.1...0.2.2)
 
-## Release 0.2.0
+### Other
 
-### New features
+- (maint) Prep 0.2.2 release [#9](https://github.com/puppetlabs/puppetlabs-http_request/pull/9) ([beechtom](https://github.com/beechtom))
+- correct description for key task parameter [#8](https://github.com/puppetlabs/puppetlabs-http_request/pull/8) ([golflimaechoecho](https://github.com/golflimaechoecho))
+- (maint) Add contributing and code of conduct docs [#7](https://github.com/puppetlabs/puppetlabs-http_request/pull/7) ([beechtom](https://github.com/beechtom))
+- Change to use webmock for tests [#6](https://github.com/puppetlabs/puppetlabs-http_request/pull/6) ([barskern](https://github.com/barskern))
 
-- **Add `json_endpoint` parameter to `http_request` task**
-  ([#2](https://github.com/puppetlabs/puppetlabs-http_request/issues/2))
+## [0.2.1](https://github.com/puppetlabs/puppetlabs-http_request/tree/0.2.1) - 2020-12-14
 
-  The `http_request` task now accepts a `json_endpoint` parameter. When set to
-  `true`, the task will convert the request body to JSON, set the `Content-Type`
-  header to `application/json`, and parse the response body as JSON.
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-http_request/compare/0.2.0...0.2.1)
 
-## Release 0.1.0
+### Other
 
-This is the initial release.
+- (maint) Prep 0.2.1 release [#5](https://github.com/puppetlabs/puppetlabs-http_request/pull/5) ([beechtom](https://github.com/beechtom))
+- Fix handling of headers [#4](https://github.com/puppetlabs/puppetlabs-http_request/pull/4) ([barskern](https://github.com/barskern))
+
+## [0.2.0](https://github.com/puppetlabs/puppetlabs-http_request/tree/0.2.0) - 2020-10-21
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-http_request/compare/0.1.0...0.2.0)
+
+### Other
+
+- (GH-2) Add `json_endpoint` parameter [#3](https://github.com/puppetlabs/puppetlabs-http_request/pull/3) ([beechtom](https://github.com/beechtom))
+
+## [0.1.0](https://github.com/puppetlabs/puppetlabs-http_request/tree/0.1.0) - 2020-09-29
+
+[Full Changelog](https://github.com/puppetlabs/puppetlabs-http_request/compare/d5dfe10f01e967a3aaa310606c9e580bee076b92...0.1.0)
