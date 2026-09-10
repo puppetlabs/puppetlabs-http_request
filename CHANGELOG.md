@@ -1,5 +1,15 @@
 # Changelog
 
+## Release 1.0.0
+
+### Breaking changes
+
+* **Support Puppet 9 / Ruby 4** ([BOLT-193](https://perforce.atlassian.net/browse/BOLT-193))
+
+  Migrates the module's dependency constraints and Ruby helper loading to work on the
+  Puppet 9 / Ruby 4 runtime, in addition to existing Puppet 8 support. Major version
+  bump reflects the runtime support change.
+
 ## Release 0.3.2
 
 ### New features
